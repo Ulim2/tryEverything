@@ -1,0 +1,45 @@
+# 부품 찾기
+n = int(input())
+a = list(map(int, input().split()))
+
+m = int(input())
+b = list(map(int, input().split()))
+
+# 재귀문
+def bin_search(target, arr, start, end):
+    if start > end:
+        return False
+
+    mid = (start + end) // 2
+
+    if arr[mid] == target:
+        return True
+    elif arr[mid] > target:
+        return bin_search(target, arr, start, mid - 1)
+    elif arr[mid] < target:
+        return bin_search(target, arr, mid + 1, end)
+
+# 반복문
+def bin_search2(target, arr, start, end):
+    while start <= end:
+        mid = (start + end) // 2
+
+        if arr[mid] == target:
+            return True
+        elif arr[mid] < target:
+            start = mid + 1
+        else:
+            end = mid - 1
+
+    return False
+    
+# 이진탐색 수행 하기 위해 sort
+a.sort()
+for i in range(m):
+
+    result = bin_search2(b[i], a, 0, len(a))
+    if result:
+        print("yes", end = ' ')
+    else:
+        print("no", end = ' ')
+
